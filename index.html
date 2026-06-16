@@ -3,7 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ARES - Cyprus Luxury Lead-Gen Platform</title>
+  <title>ARES — Kuzey Kıbrıs Lüks Gayrimenkul AI Lead-Gen Platformu</title>
+  <meta name="description" content="ARES AI ajanları ile Kuzey Kıbrıs'taki lüks gayrimenkul yatırımcılarını otomatik olarak tespit edin, iletişim kurun ve komisyon kazanın. Akıllı CRM ve co-brokerage platformu.">
+  <meta name="keywords" content="Kuzey Kıbrıs emlak, North Cyprus real estate, luxury property, co-brokerage, AI lead generation, Girne, Bellapais, komisyon">
+  <meta name="author" content="ARES Platform">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ARES — Cyprus Luxury Lead-Gen Platform">
+  <meta property="og:description" content="AI ajanları ile Kuzey Kıbrıs'ta otomatik müşteri bulma ve komisyon platformu.">
+  <meta property="og:locale" content="tr_TR">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ARES — Cyprus Luxury Lead-Gen Platform">
+  <meta name="twitter:description" content="AI ajanları ile Kuzey Kıbrıs'ta otomatik müşteri bulma ve komisyon platformu.">
+
+  <!-- Theme color for mobile browsers -->
+  <meta name="theme-color" content="#0f172a">
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -462,6 +481,77 @@
       </div>
       <div class="modal-actions">
         <button class="btn btn-primary" id="btn-confirm-deal">Harika, Nakdi Al!</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Onboarding Tutorial Modal -->
+  <div class="modal-overlay" id="onboarding-modal">
+    <div class="modal-content" style="max-width: 520px;">
+      <div class="modal-header">
+        <div class="modal-title" style="display: flex; align-items: center; gap: 10px;">
+          <svg viewBox="0 0 24 24" width="20" height="20" stroke="var(--accent)" fill="none">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 8v4M12 16h.01"></path>
+          </svg>
+          ARES Platformuna Hoş Geldiniz
+        </div>
+        <button class="modal-close" id="btn-close-onboarding">
+          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body" style="padding: 24px 0; font-size: 13px; line-height: 1.8;">
+        <div id="onboarding-steps">
+          <!-- Step 1 -->
+          <div class="onboarding-step active" data-step="1">
+            <div style="font-size: 32px; margin-bottom: 12px; text-align: center;">🏠</div>
+            <h3 style="font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 8px; text-align: center;">Kuzey Kıbrıs Komisyon Makinesi</h3>
+            <p style="color: var(--text-secondary); text-align: center;">ARES, AI ajanları aracılığıyla küresel yatırımcıları otomatik olarak tespit eder, onlarla iletişim kurar ve sizi <strong style="color: var(--accent);">komisyon geliri</strong> ile ödüllendirir.</p>
+          </div>
+          <!-- Step 2 -->
+          <div class="onboarding-step" data-step="2">
+            <div style="font-size: 32px; margin-bottom: 12px; text-align: center;">🤖</div>
+            <h3 style="font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 8px; text-align: center;">3 AI Ajan, 1 Hedef</h3>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <div style="background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.2); border-radius: 8px; padding: 10px 14px;">
+                <strong style="color: var(--primary);">🔍 Scraper Ajan</strong><br><span style="color: var(--text-secondary); font-size: 12px;">Forum, LinkedIn ve sosyal medyayı tarar. Alıcı adayları bulur.</span>
+              </div>
+              <div style="background: rgba(217,119,6,0.1); border: 1px solid rgba(217,119,6,0.2); border-radius: 8px; padding: 10px 14px;">
+                <strong style="color: var(--accent);">💬 Negotiator Ajan</strong><br><span style="color: var(--text-secondary); font-size: 12px;">Adaylarla AI sohbeti başlatır, bütçelerini ve niyetlerini doğrular.</span>
+              </div>
+              <div style="background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); border-radius: 8px; padding: 10px 14px;">
+                <strong style="color: var(--success);">✅ Closer Ajan</strong><br><span style="color: var(--text-secondary); font-size: 12px;">Kalifikasyon tamamlanınca siz "Yönlendir" butonuna basarsınız ve komisyon cebinize girer!</span>
+              </div>
+            </div>
+          </div>
+          <!-- Step 3 -->
+          <div class="onboarding-step" data-step="3">
+            <div style="font-size: 32px; margin-bottom: 12px; text-align: center;">💰</div>
+            <h3 style="font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 8px; text-align: center;">Nasıl Para Kazanılır?</h3>
+            <ol style="color: var(--text-secondary); padding-left: 20px; display: flex; flex-direction: column; gap: 6px;">
+              <li><strong style="color: #fff;">Panel'den</strong> AI ajanlarının çalıştığını izleyin</li>
+              <li><strong style="color: #fff;">AI Lead Inbox'tan</strong> olgun müşterileri takip edin</li>
+              <li>Müşteri "Hazır!" olunca <strong style="color: var(--accent);">"Yönlendir ve Komisyon Al"</strong> butonuna basın</li>
+              <li>Kazandığınız komisyonla <strong style="color: #fff;">Varlık & Yatırım</strong> ekranından ajan kapasitesini artırın</li>
+            </ol>
+            <div style="margin-top: 16px; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); border-radius: 8px; padding: 10px 14px; font-size: 12px; color: var(--success);">
+              💡 İpucu: Başlangıç sermayeniz <strong>£500</strong>. İlk komisyonu kazanmak için AI ajanlarının çalışmasını bekleyin!
+            </div>
+          </div>
+        </div>
+        <!-- Step indicators -->
+        <div style="display: flex; justify-content: center; gap: 8px; margin-top: 20px;" id="onboarding-dots">
+          <div class="onboarding-dot active" data-dot="1"></div>
+          <div class="onboarding-dot" data-dot="2"></div>
+          <div class="onboarding-dot" data-dot="3"></div>
+        </div>
+      </div>
+      <div class="modal-actions" style="display: flex; gap: 10px; justify-content: space-between;">
+        <button class="btn" id="btn-onboarding-prev" style="background: rgba(255,255,255,0.05); color: var(--text-secondary); border: 1px solid var(--border-color); opacity: 0; pointer-events: none;">← Geri</button>
+        <button class="btn btn-primary" id="btn-onboarding-next">Sonraki →</button>
       </div>
     </div>
   </div>

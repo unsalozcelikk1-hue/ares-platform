@@ -713,9 +713,10 @@ body {
 }
 
 .property-img-box {
-  height: 150px;
+  height: 180px;
   background: var(--bg-sidebar);
   position: relative;
+  overflow: hidden;
 }
 
 .property-badge {
@@ -1126,4 +1127,34 @@ body {
     display: flex;
     justify-content: flex-end;
   }
+}
+
+/* ─── Onboarding Tutorial ─── */
+.onboarding-step {
+  display: none;
+  animation: fadeInStep 0.3s ease-in-out;
+}
+
+.onboarding-step.active {
+  display: block;
+}
+
+@keyframes fadeInStep {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.onboarding-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border-color);
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.onboarding-dot.active {
+  background: var(--accent);
+  width: 20px;
+  border-radius: 4px;
 }

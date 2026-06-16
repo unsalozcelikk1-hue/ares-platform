@@ -11,7 +11,7 @@ const PROPERTIES = [
     yield: "9.5%",
     description: "Sonsuzluk havuzlu, 3+1 özel tasarım lüks villa. Akdeniz'e sıfır konumda yüksek kiralama getirisi sunar.",
     suitability: "Avrupalı Emekliler / Vergi Muafiyeti Arayanlar",
-    imageSvg: `<svg viewBox="0 0 100 60" width="100%" height="100%"><rect width="100" height="60" fill="#1e293b"/><path d="M10 45 L50 15 L90 45 Z" fill="#0f172a"/><rect x="25" y="35" width="50" height="20" fill="#334155"/><rect x="40" y="42" width="20" height="13" fill="#f5a623" opacity="0.8"/><circle cx="80" cy="20" r="8" fill="#fda085"/></svg>`
+    imageSvg: `<img src="assets/prop-esentepe-villa.png" alt="Esentepe Villa" style="width:100%;height:100%;object-fit:cover;display:block;">`
   },
   {
     id: "prop-iskele-penthouse",
@@ -22,7 +22,7 @@ const PROPERTIES = [
     yield: "11.2%",
     description: "İskele Long Beach sahiline 150m mesafede, 2+1 geniş teraslı penthouse daire. Rezidans konseptli tatil kiralama.",
     suitability: "Kripto Yatırımcıları / Airbnb İşletmecileri",
-    imageSvg: `<svg viewBox="0 0 100 60" width="100%" height="100%"><rect width="100" height="60" fill="#1e293b"/><rect x="15" y="15" width="70" height="35" fill="#0f172a"/><line x1="15" y1="25" x2="85" y2="25" stroke="#f5a623" stroke-width="2"/><rect x="30" y="30" width="10" height="20" fill="#334155"/><rect x="60" y="30" width="10" height="20" fill="#334155"/></svg>`
+    imageSvg: `<img src="assets/prop-iskele-penthouse.png" alt="Long Beach Penthouse" style="width:100%;height:100%;object-fit:cover;display:block;">`
   },
   {
     id: "prop-bellapais-mansion",
@@ -33,18 +33,18 @@ const PROPERTIES = [
     yield: "7.0%",
     description: "Bellapais Manastırı yakınında, dağ ve deniz manzaralı, 5+2 otantik taş mimariye sahip ultra lüks malikane.",
     suitability: "HNI / Prestij ve Oturum İzni Arayanlar",
-    imageSvg: `<svg viewBox="0 0 100 60" width="100%" height="100%"><rect width="100" height="60" fill="#1e293b"/><path d="M20 40 L50 10 L80 40 Z" fill="#0f172a"/><rect x="30" y="30" width="40" height="25" fill="#0f172a"/><rect x="45" y="40" width="10" height="15" fill="#f5a623"/></svg>`
+    imageSvg: `<img src="assets/prop-bellapais-mansion.png" alt="Bellapais Malikane" style="width:100%;height:100%;object-fit:cover;display:block;">`
   },
   {
     id: "prop-alsancak-bungalow",
     title: "Alsancak Doğa Bungalovu",
     location: "Alsancak, Girne",
-    price: 1850000,
+    price: 185000,
     commissionRate: 0.06,
     yield: "8.5%",
     description: "Dağ esintisine sahip, zeytin ağaçları arasında 3+1 özel havuzlu dağbungalovu. Sakin yaşam arayanlar için ideal.",
     suitability: "İngiliz Expatlar / Doğa Severler",
-    imageSvg: `<svg viewBox="0 0 100 60" width="100%" height="100%"><rect width="100" height="60" fill="#1e293b"/><path d="M15 45 L50 20 L85 45 Z" fill="#334155"/><rect x="25" y="40" width="50" height="15" fill="#0f172a"/></svg>`
+    imageSvg: `<img src="assets/prop-alsancak-bungalow.png" alt="Alsancak Bungalov" style="width:100%;height:100%;object-fit:cover;display:block;">`
   }
 ];
 
@@ -164,6 +164,90 @@ const DIALOG_TEMPLATES = {
       { sender: "agent", text: "Exactly, Alsancak has excellent infrastructure, English schools, supermarkets, and fiber optic connection up to 100 Mbps. It provides the perfect work-from-paradise environment." },
       { sender: "client", text: "Perfect. I want to schedule a virtual tour of the bungalow. If the internet speeds are verified, I can sign the contract online. Please connect me with the broker immediately." }
     ]
+  },
+  "french-investor": {
+    name: "Pierre Dupont",
+    origin: "Fransa (Paris)",
+    region: "france",
+    budget: 380000,
+    propertyId: "prop-esentepe-villa",
+    avatarColor: "#60a5fa",
+    messages: [
+      { sender: "agent", text: "Bonjour Pierre! Notre réseau ARES a détecté votre intérêt pour l'immobilier méditerranéen. La villa d'Esentepe offre un rendement de 9%+ et zéro taxe sur les plus-values." },
+      { sender: "client", text: "Bonjour. Oui, je cherche à diversifier mon portefeuille hors de France pour éviter l'IFI. Est-ce que Chypre du Nord accepte les résidents fiscaux français?" },
+      { sender: "agent", text: "Absolument Pierre. La convention fiscale franco-chypriote permet d'éviter la double imposition. De plus, un investissement de £125.000+ ouvre droit à un permis de résidence permanent." },
+      { sender: "client", text: "Excellent! Mon budget est environ £350.000-400.000. La villa d'Esentepe semble parfaite. Pouvez-vous organiser une visite la semaine prochaine avec l'avocat local?" }
+    ]
+  },
+  "uae-hni": {
+    name: "Khalid Al-Rashid",
+    origin: "BAE (Dubai)",
+    region: "uae",
+    budget: 950000,
+    propertyId: "prop-bellapais-mansion",
+    avatarColor: "#fbbf24",
+    messages: [
+      { sender: "agent", text: "السلام عليكم Khalid Bey. ARES ağımız Bellapais bölgesindeki ultra-lüks malikane portföyümüz için sizi tespit etti. Kıbrıs'ta mülk edinimi GCC vatandaşları için çok avantajlı." },
+      { sender: "client", text: "Merhaba. Dubai'deki portföyümü çeşitlendirmek istiyorum. Kıbrıs'ta yabancı alıcılar için herhangi bir kısıtlama var mı? Oturma izni süreci nasıl?" },
+      { sender: "agent", text: "Kuzey Kıbrıs'ta yabancı alıcılar tüm haklara sahip. £150.000 üzerindeki yatırımlarda kalıcı oturma izni çıkıyor. Bellapais malikanemiz ise Kıbrıs'ın en prestijli lokasyonlarından biri." },
+      { sender: "client", text: "Çok güzel. Bütçem £900.000-1.000.000 arası. Bu fiyat aralığında ne sunabilirsiniz? Avukat ve noter süreci için temsilcinizi Dubai'de buluşabilir miyiz?" }
+    ]
+  },
+  "dutch-digital": {
+    name: "Lars van der Berg",
+    origin: "Hollanda (Amsterdam)",
+    region: "netherlands",
+    budget: 210000,
+    propertyId: "prop-iskele-penthouse",
+    avatarColor: "#34d399",
+    messages: [
+      { sender: "agent", text: "Hallo Lars! Noord-Cyprus biedt een perfecte combinatie van lage belastingen en hoge huurrendementen. Onze Long Beach Penthouse heeft een rendement van 11%+." },
+      { sender: "client", text: "Hoi! Ik ben geïnteresseerd als investering voor Airbnb verhuur. Hoe zit het met de Nederlandse belastingverdrag met Noord-Cyprus? Ik wil dubbele belasting vermijden." },
+      { sender: "agent", text: "Noord-Cyprus heeft aantrekkelijke belastingverdragen. Huurinkomsten worden lokaal belast tegen maximaal 10%. Ons beheerbedrijf zorgt voor complete Airbnb-management inclusief schoonmaak." },
+      { sender: "client", text: "Dat klinkt geweldig! Mijn budget is €200.000-225.000. Kan ik de penthouse op afstand kopen via digitale handtekening? Stuur me de juridische documentatie." }
+    ]
+  },
+  "swiss-wealth": {
+    name: "Hans Müller",
+    origin: "İsviçre (Zürich)",
+    region: "switzerland",
+    budget: 750000,
+    propertyId: "prop-bellapais-mansion",
+    avatarColor: "#f87171",
+    messages: [
+      { sender: "agent", text: "Guten Tag Hans! Unser ARES-Netzwerk hat Ihr Interesse an mediterranen Luxusimmobilien erkannt. Das Bellapais-Anwesen bietet einzigartige Steuervorteile für Schweizer Investoren." },
+      { sender: "client", text: "Guten Tag. Ich suche eine Kapitalanlage außerhalb der Schweiz für meine Holding. Wie ist die rechtliche Situation für Schweizer Käufer in Nordzypern?" },
+      { sender: "agent", text: "Nordzypern ist sehr günstig für Schweizer. Kein Kapitalertragsteuer, minimale Erbschaftsteuer, und ein Double-Tax-Abkommen ist in Verhandlung. Das Anwesen ist über eine lokale Gesellschaft strukturierbar." },
+      { sender: "client", text: "Sehr interessant. Mein Budget liegt bei CHF 850.000 (circa £750.000). Können Sie mir Kontakt zu einem lokalen Steueranwalt und dem Entwickler vermitteln?" }
+    ]
+  },
+  "italian-retiree": {
+    name: "Marco Rossi",
+    origin: "İtalya (Milano)",
+    region: "italy",
+    budget: 165000,
+    propertyId: "prop-iskele-penthouse",
+    avatarColor: "#fb923c",
+    messages: [
+      { sender: "agent", text: "Ciao Marco! Cipro del Nord è la destinazione ideale per i pensionati italiani — sole mediterraneo, costo della vita basso e zero capital gains tax. Il nostro Penthouse di Long Beach è perfetto." },
+      { sender: "client", text: "Ciao! Sono in pensione e cerco un posto caldo e conveniente. Ho sentito che Cipro del Nord è molto simile alla Sicilia ma più economica. Qual è il processo per gli italiani?" },
+      { sender: "agent", text: "Esattamente Marco! Il visto di residenza richiede solo £85.000 di investimento. La comunità italiana a Girne è molto attiva. Il nostro penthouse ha spiaggia privata e piscina condominiale." },
+      { sender: "client", text: "Meraviglioso! Il mio budget è £150.000-180.000. Vorrei visitare la proprietà a settembre. Potete organizzare un tour con interprete italiano?" }
+    ]
+  },
+  "aus-investor": {
+    name: "James Mitchell",
+    origin: "Avustralya (Sydney)",
+    region: "australia",
+    budget: 285000,
+    propertyId: "prop-esentepe-villa",
+    avatarColor: "#e879f9",
+    messages: [
+      { sender: "agent", text: "G'day James! North Cyprus is gaining massive traction with Australian expats. Our Esentepe Villa offers 9.5% rental yield — far better than Sydney's overpriced market." },
+      { sender: "client", text: "Hey! Yeah, Sydney property is insane. I've been looking at Mediterranean options. Is North Cyprus politically stable? I've heard mixed things about the Cyprus situation." },
+      { sender: "agent", text: "North Cyprus has been politically stable for 50 years with its own government. Many Australians have successfully invested and obtained residency. The legal system is based on British Common Law — very familiar." },
+      { sender: "client", text: "That's reassuring! My budget is around AUD 550,000 (about £285,000). The villa looks stunning. Can I finance part of it with a local bank? Please set up a call with your sales team." }
+    ]
   }
 };
 
@@ -186,14 +270,20 @@ let state = {
     "german-expat": "Merhaba {name} Bey, Kuzey Kıbrıs emlak piyasasına gösterdiğiniz ilgi için teşekkürler. Almanya'daki vergi yükünüzü azaltacak ve Sterlin bazlı %9+ getiri sağlayacak {property} projemizi incelediniz mi?",
     "uk-retiree": "Hello {name}, ARES AI network detected your interest in warm Mediterranean properties. Are you looking for a quiet retirement home or an investment?",
     "crypto-whale": "Dmitry Bey selamlar. Kıbrıs Bellapais bölgesindeki tarihi malikane portföyümüz için ulaştım. Alımı kripto para (USDT/BTC) ile gerçekleştirmek istediğinizi belirten algoritma eşleşmemiz var.",
-    "scand-dev": "Hej {name}! North Cyprus property is booming for remote developers due to low living costs and zero remote-work income tax. Have you checked out our {property} listing?"
+    "scand-dev": "Hej {name}! North Cyprus property is booming for remote developers due to low living costs and zero remote-work income tax. Have you checked out our {property} listing?",
+    "french-investor": "Bonjour {name}! Notre réseau ARES a détecté votre intérêt pour l'immobilier méditerranéen. Notre {property} à Chypre du Nord offre un rendement de 9%+.",
+    "uae-hni": "السلام عليكم {name}، ARES ağımız sizi tespit etti. {property} için Kıbrıs'ta mülk edinimi GCC vatandaşları için çok avantajlı.",
+    "dutch-digital": "Hallo {name}! Noord-Cyprus biedt een perfecte combinatie van laag belasting en hoge huurrendementen. Bekijk onze {property} listing!",
+    "swiss-wealth": "Guten Tag {name}, Nordzyperische Immobilien bieten Kapitalanleger einzigartige Steuervorteile. Unser Objekt {property} ist ideal für Ihr Portfolio.",
+    "italian-retiree": "Ciao {name}! Cipro del Nord è la meta ideale per pensionati italiani — sole, mare e zero capital gains. La nostra {property} è perfetta per lei.",
+    "aus-investor": "G'day {name}! North Cyprus is gaining massive traction with Australian expats. Our {property} offers lifestyle + 9%+ yields — let's chat!"
   },
   cryptoUSDT: 0 // Crypto asset balance in USDT
 };
 
 // API configuration and state sync variables
 let backendActive = false;
-const API_BASE = window.location.protocol.startsWith('http') ? '' : 'http://localhost:5050';
+const API_BASE = window.location.protocol.startsWith('http') ? '' : 'http://localhost:5000';
 
 let lastCrmFingerprint = "";
 let lastRenderedLeadId = null;
@@ -534,6 +624,7 @@ async function buyUpgrade(item) {
       } else {
         state.lifestyleIndex += 0.3;
       }
+      state.lifestyleIndex = Math.min(state.lifestyleIndex, 10.0);
       
       addFeedLog(`Yükseltme satın alındı: ${item.title}. Operasyonel kapasite ve yaşam kalitesi başarıyla artırıldı.`, "success");
       
@@ -728,6 +819,8 @@ confirmDealBtn.addEventListener("click", async () => {
           const result = await res.json();
           Object.assign(state, result);
           dealModal.classList.remove("active");
+          playDealSound();
+          triggerConfetti();
           await fetchStateAndLeads();
           updateTopNavbar();
           renderCrm();
@@ -751,8 +844,10 @@ confirmDealBtn.addEventListener("click", async () => {
       state.dealsClosed += 1;
       
       addFeedLog(`ANLAŞMA BAŞARILI! ${lead.name} yönlendirildi. ${formatMoney(potentialCommission)} hesabınıza geçti!`, "success");
-      
+
       dealModal.classList.remove("active");
+      playDealSound();
+      triggerConfetti();
       saveState();
       updateTopNavbar();
       renderCrm();
@@ -902,6 +997,7 @@ function generateNewLead() {
   
   state.leads.push(newLead);
   addFeedLog(`YENİ MÜŞTERİ YAKALANDI: ${newLead.name} (${newLead.origin}) ARES AI kazıma ağına takıldı. İlk mesaj gönderildi.`, "warning");
+  playLeadSound();
   saveState();
   renderCrm();
   updateFunnelDisplay();
@@ -1090,6 +1186,124 @@ document.getElementById("btn-reset-data").addEventListener("click", async () => 
   }
 });
 
+// 12. Visibility Pause — interval'i sekme arka plandayken duraklat
+let simulationIntervalId = null;
+
+function startSimulation() {
+  if (!simulationIntervalId) {
+    simulationIntervalId = setInterval(processSimulationTicks, 1000);
+  }
+}
+
+function stopSimulation() {
+  if (simulationIntervalId) {
+    clearInterval(simulationIntervalId);
+    simulationIntervalId = null;
+  }
+}
+
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    stopSimulation();
+  } else {
+    startSimulation();
+    // Re-sync from backend when tab becomes active
+    if (backendActive) {
+      fetchStateAndLeads().then(() => {
+        updateTopNavbar();
+        renderCrm();
+        renderActiveChat();
+        renderFeedLogs();
+        updateFunnelDisplay();
+      });
+    }
+  }
+});
+
+// 13. Web Audio API — lead bildirimi ve deal sesi
+function playLeadSound() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.frequency.setValueAtTime(880, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(1320, ctx.currentTime + 0.1);
+    gain.gain.setValueAtTime(0.15, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.4);
+  } catch (e) { /* Ses izni yoksa sessizce geç */ }
+}
+
+function playDealSound() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const notes = [523, 659, 784, 1047]; // C5, E5, G5, C6
+    notes.forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.1);
+      gain.gain.setValueAtTime(0.12, ctx.currentTime + i * 0.1);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.1 + 0.3);
+      osc.start(ctx.currentTime + i * 0.1);
+      osc.stop(ctx.currentTime + i * 0.1 + 0.35);
+    });
+  } catch (e) { /* Ses izni yoksa sessizce geç */ }
+}
+
+// 16. Konfeti Animasyonu
+function triggerConfetti() {
+  const canvas = document.createElement('canvas');
+  canvas.style.position = 'fixed';
+  canvas.style.top = '0';
+  canvas.style.left = '0';
+  canvas.style.width = '100%';
+  canvas.style.height = '100%';
+  canvas.style.pointerEvents = 'none';
+  canvas.style.zIndex = '9999';
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  document.body.appendChild(canvas);
+
+  const ctx = canvas.getContext('2d');
+  const colors = ['#3b82f6', '#d97706', '#10b981', '#f59e0b', '#8b5cf6', '#ef4444', '#fbbf24'];
+  const pieces = Array.from({ length: 120 }, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * -canvas.height,
+    r: Math.random() * 8 + 4,
+    d: Math.random() * 20 + 10,
+    color: colors[Math.floor(Math.random() * colors.length)],
+    tilt: Math.random() * 10 - 10,
+    tiltAngle: 0,
+    tiltAngleInc: Math.random() * 0.07 + 0.05
+  }));
+
+  let frame = 0;
+  const anim = setInterval(() => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    pieces.forEach(p => {
+      p.tiltAngle += p.tiltAngleInc;
+      p.y += Math.cos(frame / 20) + p.d;
+      p.x += Math.sin(frame / 30);
+      p.tilt = Math.sin(p.tiltAngle) * 15;
+      ctx.beginPath();
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = Math.max(0, 1 - frame / 80);
+      ctx.ellipse(p.x, p.y, p.r, p.r * 0.4, p.tilt * 0.1, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    frame++;
+    if (frame > 90) {
+      clearInterval(anim);
+      document.body.removeChild(canvas);
+    }
+  }, 16);
+}
+
 // 12. Initialization
 async function init() {
   await checkBackend();
@@ -1098,14 +1312,13 @@ async function init() {
   } else {
     loadState();
   }
-  state.lastTick = Date.now(); // Reset time diff on load
-  
-  // Initial Feed Logs if empty
+  state.lastTick = Date.now();
+
   if (state.feedLogs.length === 0) {
     addFeedLog("ARES AI Lead-Gen Ağı başlatıldı. Tarayıcı botlar aktif hale getirildi.");
     addFeedLog("Girne merkezli Co-Brokerage sözleşmeleri onaylandı.", "success");
   }
-  
+
   updateTopNavbar();
   renderProperties();
   renderShop();
@@ -1116,9 +1329,9 @@ async function init() {
   renderActiveChat();
   renderFeedLogs();
   updateFunnelDisplay();
-  
-  // Start Game Loop Interval
-  setInterval(processSimulationTicks, 1000);
+
+  // Start simulation using managed interval
+  startSimulation();
 }
 
 // 13. Render Agents View
@@ -1143,6 +1356,12 @@ function renderAgents() {
             <option value="germany" ${state.agents.scraper.targetRegion === 'germany' ? 'selected' : ''}>Almanya (Vergi Expatı & Villa)</option>
             <option value="russia" ${state.agents.scraper.targetRegion === 'russia' ? 'selected' : ''}>Rusya (Kripto Balinası & Malikane)</option>
             <option value="scand" ${state.agents.scraper.targetRegion === 'scand' ? 'selected' : ''}>İskandinavya (Uzak Çalışan & Havuzlu)</option>
+            <option value="france" ${state.agents.scraper.targetRegion === 'france' ? 'selected' : ''}>Fransa (Vergi Kaçınan Yatırımcı)</option>
+            <option value="uae" ${state.agents.scraper.targetRegion === 'uae' ? 'selected' : ''}>BAE / Dubai (HNI & Kripto Servet)</option>
+            <option value="netherlands" ${state.agents.scraper.targetRegion === 'netherlands' ? 'selected' : ''}>Hollanda (Dijital Göçmen)</option>
+            <option value="switzerland" ${state.agents.scraper.targetRegion === 'switzerland' ? 'selected' : ''}>İsviçre (Kurumsal Yatırımcı)</option>
+            <option value="italy" ${state.agents.scraper.targetRegion === 'italy' ? 'selected' : ''}>İtalya (Güneş Emeklisi)</option>
+            <option value="australia" ${state.agents.scraper.targetRegion === 'australia' ? 'selected' : ''}>Avustralya (Expat Yatırımcı)</option>
           </select>
         </div>
       `
@@ -1300,7 +1519,13 @@ function renderPromptEditor() {
     { key: "german-expat", label: "Almanya (Dieter S.)" },
     { key: "uk-retiree", label: "Birleşik Krallık (Margaret E.)" },
     { key: "crypto-whale", label: "Rusya (Dmitry I.)" },
-    { key: "scand-dev", label: "İsveç (Erik L.)" }
+    { key: "scand-dev", label: "İsveç (Erik L.)" },
+    { key: "french-investor", label: "Fransa (Pierre D.)" },
+    { key: "uae-hni", label: "BAE / Dubai (Khalid A.)" },
+    { key: "dutch-digital", label: "Hollanda (Lars v.d.B.)" },
+    { key: "swiss-wealth", label: "İsviçre (Hans M.)" },
+    { key: "italian-retiree", label: "İtalya (Marco R.)" },
+    { key: "aus-investor", label: "Avustralya (James M.)" }
   ];
   
   templateConfig.forEach(cfg => {
@@ -1473,5 +1698,91 @@ function initOtcSwapEvents() {
   };
 }
 
+// 17. Onboarding Tutorial Logic
+function initOnboarding() {
+  const modal = document.getElementById('onboarding-modal');
+  const prevBtn = document.getElementById('btn-onboarding-prev');
+  const nextBtn = document.getElementById('btn-onboarding-next');
+  const closeBtn = document.getElementById('btn-close-onboarding');
+  const steps = document.querySelectorAll('.onboarding-step');
+  const dots = document.querySelectorAll('.onboarding-dot');
+
+  const TOTAL_STEPS = 3;
+  let currentStep = 1;
+
+  // Show only if first visit
+  if (!localStorage.getItem('ares_onboarding_done')) {
+    modal.classList.add('active');
+  }
+
+  function updateStep() {
+    steps.forEach(s => s.classList.remove('active'));
+    dots.forEach(d => d.classList.remove('active'));
+
+    const activeStep = document.querySelector(`.onboarding-step[data-step="${currentStep}"]`);
+    const activeDot = document.querySelector(`.onboarding-dot[data-dot="${currentStep}"]`);
+    if (activeStep) activeStep.classList.add('active');
+    if (activeDot) activeDot.classList.add('active');
+
+    // Prev button
+    if (currentStep === 1) {
+      prevBtn.style.opacity = '0';
+      prevBtn.style.pointerEvents = 'none';
+    } else {
+      prevBtn.style.opacity = '1';
+      prevBtn.style.pointerEvents = 'auto';
+    }
+
+    // Next/Finish button
+    if (currentStep === TOTAL_STEPS) {
+      nextBtn.textContent = '🚀 Başla!';
+    } else {
+      nextBtn.textContent = 'Sonraki →';
+    }
+  }
+
+  function closeOnboarding() {
+    modal.classList.remove('active');
+    localStorage.setItem('ares_onboarding_done', '1');
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      if (currentStep < TOTAL_STEPS) {
+        currentStep++;
+        updateStep();
+      } else {
+        closeOnboarding();
+      }
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      if (currentStep > 1) {
+        currentStep--;
+        updateStep();
+      }
+    });
+  }
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeOnboarding);
+  }
+
+  // Dot click navigation
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      currentStep = parseInt(dot.dataset.dot);
+      updateStep();
+    });
+  });
+
+  updateStep();
+}
+
 // Run init on load
-window.onload = init;
+window.onload = () => {
+  init();
+  initOnboarding();
+};

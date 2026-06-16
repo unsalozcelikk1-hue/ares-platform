@@ -7,7 +7,7 @@ import threading
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
 # Configurations
-PORT = 5050
+PORT = int(os.environ.get("PORT", 5000))
 backend_dir = os.path.dirname(os.path.abspath(__file__))
 DB_FILE = os.path.join(backend_dir, 'database.sqlite')
 

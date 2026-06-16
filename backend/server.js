@@ -1,12 +1,17 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const { initDb, query, run, get } = require('./db');
+const { initDb, query, run, get, db } = require('./db');
 
 dotenv.config();
 
 const app = express();
-app.use(cors());
+const allowedOrigin = process.env.CORS_ORIGIN || '*';
+app.use(cors({
+  origin: allowedOrigin === '*' ? '*' : allowedOrigin,
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type']
+}));
 app.use(express.json());
 
 const PORT = process.env.PORT || 5000;
@@ -81,6 +86,90 @@ const DIALOG_TEMPLATES = {
       { sender: "agent", text: "Exactly, Alsancak has excellent infrastructure, English schools, supermarkets, and fiber optic connection up to 100 Mbps. It provides the perfect work-from-paradise environment." },
       { sender: "client", text: "Perfect. I want to schedule a virtual tour of the bungalow. If the internet speeds are verified, I can sign the contract online. Please connect me with the broker immediately." }
     ]
+  },
+  "french-investor": {
+    name: "Pierre Dupont",
+    origin: "Fransa (Paris)",
+    region: "france",
+    budget: 380000,
+    propertyId: "prop-esentepe-villa",
+    avatarColor: "#60a5fa",
+    messages: [
+      { sender: "agent", text: "Bonjour Pierre! Notre réseau ARES a détecté votre intérêt pour l'immobilier méditerranéen. La villa d'Esentepe offre un rendement de 9%+ et zéro taxe sur les plus-values." },
+      { sender: "client", text: "Bonjour. Oui, je cherche à diversifier mon portefeuille hors de France pour éviter l'IFI. Est-ce que Chypre du Nord accepte les résidents fiscaux français?" },
+      { sender: "agent", text: "Absolument Pierre. La convention fiscale franco-chypriote permet d'éviter la double imposition. De plus, un investissement de £125.000+ ouvre droit à un permis de résidence permanent." },
+      { sender: "client", text: "Excellent! Mon budget est environ £350.000-400.000. La villa d'Esentepe semble parfaite. Pouvez-vous organiser une visite la semaine prochaine avec l'avocat local?" }
+    ]
+  },
+  "uae-hni": {
+    name: "Khalid Al-Rashid",
+    origin: "BAE (Dubai)",
+    region: "uae",
+    budget: 950000,
+    propertyId: "prop-bellapais-mansion",
+    avatarColor: "#fbbf24",
+    messages: [
+      { sender: "agent", text: "السلام عليكم Khalid Bey. ARES ağımız Bellapais bölgesindeki ultra-lüks malikane portföyümüz için sizi tespit etti. Kıbrıs'ta mülk edinimi GCC vatandaşları için çok avantajlı." },
+      { sender: "client", text: "Merhaba. Dubai'deki portföyümü çeşitlendirmek istiyorum. Kıbrıs'ta yabancı alıcılar için herhangi bir kısıtlama var mı? Oturma izni süreci nasıl?" },
+      { sender: "agent", text: "Kuzey Kıbrıs'ta yabancı alıcılar tüm haklara sahip. £150.000 üzerindeki yatırımlarda kalıcı oturma izni çıkıyor. Bellapais malikanemiz ise Kıbrıs'ın en prestijli lokasyonlarından biri." },
+      { sender: "client", text: "Çok güzel. Bütçem £900.000-1.000.000 arası. Bu fiyat aralığında ne sunabilirsiniz? Avukat ve noter süreci için temsilcinizi Dubai'de buluşabilir miyiz?" }
+    ]
+  },
+  "dutch-digital": {
+    name: "Lars van der Berg",
+    origin: "Hollanda (Amsterdam)",
+    region: "netherlands",
+    budget: 210000,
+    propertyId: "prop-iskele-penthouse",
+    avatarColor: "#34d399",
+    messages: [
+      { sender: "agent", text: "Hallo Lars! Noord-Cyprus biedt een perfecte combinatie van lage belastingen en hoge huurrendementen. Onze Long Beach Penthouse heeft een rendement van 11%+." },
+      { sender: "client", text: "Hoi! Ik ben geïnteresseerd als investering voor Airbnb verhuur. Hoe zit het met de Nederlandse belastingverdrag met Noord-Cyprus? Ik wil dubbele belasting vermijden." },
+      { sender: "agent", text: "Noord-Cyprus heeft aantrekkelijke belastingverdragen. Huurinkomsten worden lokaal belast tegen maximaal 10%. Ons beheerbedrijf zorgt voor complete Airbnb-management inclusief schoonmaak." },
+      { sender: "client", text: "Dat klinkt geweldig! Mijn budget is €200.000-225.000. Kan ik de penthouse op afstand kopen via digitale handtekening? Stuur me de juridische documentatie." }
+    ]
+  },
+  "swiss-wealth": {
+    name: "Hans Müller",
+    origin: "İsviçre (Zürich)",
+    region: "switzerland",
+    budget: 750000,
+    propertyId: "prop-bellapais-mansion",
+    avatarColor: "#f87171",
+    messages: [
+      { sender: "agent", text: "Guten Tag Hans! Unser ARES-Netzwerk hat Ihr Interesse an mediterranen Luxusimmobilien erkannt. Das Bellapais-Anwesen bietet einzigartige Steuervorteile für Schweizer Investoren." },
+      { sender: "client", text: "Guten Tag. Ich suche eine Kapitalanlage außerhalb der Schweiz für meine Holding. Wie ist die rechtliche Situation für Schweizer Käufer in Nordzypern?" },
+      { sender: "agent", text: "Nordzypern ist sehr günstig für Schweizer. Kein Kapitalertragsteuer, minimale Erbschaftsteuer, und ein Double-Tax-Abkommen ist in Verhandlung. Das Anwesen ist über eine lokale Gesellschaft strukturierbar." },
+      { sender: "client", text: "Sehr interessant. Mein Budget liegt bei CHF 850.000 (circa £750.000). Können Sie mir Kontakt zu einem lokalen Steueranwalt und dem Entwickler vermitteln?" }
+    ]
+  },
+  "italian-retiree": {
+    name: "Marco Rossi",
+    origin: "İtalya (Milano)",
+    region: "italy",
+    budget: 165000,
+    propertyId: "prop-iskele-penthouse",
+    avatarColor: "#fb923c",
+    messages: [
+      { sender: "agent", text: "Ciao Marco! Cipro del Nord è la destinazione ideale per i pensionati italiani — sole mediterraneo, costo della vita basso e zero capital gains tax. Il nostro Penthouse di Long Beach è perfetto." },
+      { sender: "client", text: "Ciao! Sono in pensione e cerco un posto caldo e conveniente. Ho sentito che Cipro del Nord è molto simile alla Sicilia ma più economica. Qual è il processo per gli italiani?" },
+      { sender: "agent", text: "Esattamente Marco! Il visto di residenza richiede solo £85.000 di investimento. La comunità italiana a Girne è molto attiva. Il nostro penthouse ha spiaggia privata e piscina condominiale." },
+      { sender: "client", text: "Meraviglioso! Il mio budget è £150.000-180.000. Vorrei visitare la proprietà a settembre. Potete organizzare un tour con interprete italiano?" }
+    ]
+  },
+  "aus-investor": {
+    name: "James Mitchell",
+    origin: "Avustralya (Sydney)",
+    region: "australia",
+    budget: 285000,
+    propertyId: "prop-esentepe-villa",
+    avatarColor: "#e879f9",
+    messages: [
+      { sender: "agent", text: "G'day James! North Cyprus is gaining massive traction with Australian expats. Our Esentepe Villa offers 9.5% rental yield — far better than Sydney's overpriced market." },
+      { sender: "client", text: "Hey! Yeah, Sydney property is insane. I've been looking at Mediterranean options. Is North Cyprus politically stable? I've heard mixed things about the Cyprus situation." },
+      { sender: "agent", text: "North Cyprus has been politically stable for 50 years with its own government. Many Australians have successfully invested and obtained residency. The legal system is based on British Common Law — very familiar." },
+      { sender: "client", text: "That's reassuring! My budget is around AUD 550,000 (about £285,000). The villa looks stunning. Can I finance part of it with a local bank? Please set up a call with your sales team." }
+    ]
   }
 };
 
@@ -153,11 +242,17 @@ app.post('/api/state/reset', async (req, res) => {
       ["german-expat", "Merhaba {name} Bey, Kuzey Kıbrıs emlak piyasasına gösterdiğiniz ilgi için teşekkürler. Almanya'daki vergi yükünüzü azaltacak ve Sterlin bazlı %9+ getiri sağlayacak {property} projemizi incelediniz mi?"],
       ["uk-retiree", "Hello {name}, ARES AI network detected your interest in warm Mediterranean properties. Are you looking for a quiet retirement home or an investment?"],
       ["crypto-whale", "Dmitry Bey selamlar. Kıbrıs Bellapais bölgesindeki tarihi malikane portföyümüz için ulaştım. Alımı kripto para (USDT/BTC) ile gerçekleştirmek istediğinizi belirten algoritma eşleşmemiz var."],
-      ["scand-dev", "Hej {name}! North Cyprus property is booming for remote developers due to low living costs and zero remote-work income tax. Have you checked out our {property} listing?"]
+      ["scand-dev", "Hej {name}! North Cyprus property is booming for remote developers due to low living costs and zero remote-work income tax. Have you checked out our {property} listing?"],
+      ["french-investor", "Bonjour {name}! Nous avons identifié votre intérêt pour l'investissement méditerranéen. Notre {property} à Chypre du Nord offre un rendement de 9%+."],
+      ["uae-hni", "السلام عليكم {name}، لقد رصدنا اهتمامكم بالاستثمار العقاري الفاخر. عقارنا {property} في قبرص الشمالية يوفر إقامة سريعة وعائداً ممتازاً."],
+      ["dutch-digital", "Hallo {name}! Noord-Cyprus biedt een perfecte combinatie van laag belasting en hoge huurrendementen. Bekijk onze {property} listing!"],
+      ["swiss-wealth", "Guten Tag {name}, Nordzyperische Immobilien bieten Kapitalanleger einzigartige Steuervorteile. Unser Objekt {property} ist ideal für Ihr Portfolio."],
+      ["italian-retiree", "Ciao {name}! Cipro del Nord è la meta ideale per pensionati italiani — sole, mare e zero capital gains. La nostra {property} è perfetta per lei."],
+      ["aus-investor", "G'day {name}! North Cyprus is gaining massive traction with Australian expats. Our {property} offers lifestyle + 9%+ yields — let's chat!"]
     ];
-    const stmt = db.prepare("INSERT INTO prompts (key, template) VALUES (?, ?)");
-    defaultPrompts.forEach(p => stmt.run(p));
-    stmt.finalize();
+    for (const [key, template] of defaultPrompts) {
+      await run("INSERT OR REPLACE INTO prompts (key, template) VALUES (?, ?)", [key, template]);
+    }
 
     addServerLog("Tüm sistem verileri yerel veri tabanında sıfırlandı.", "warning");
     await saveCacheToDb();
@@ -180,6 +275,7 @@ app.post('/api/state/upgrade', async (req, res) => {
     if (category === "Housing") cachedState.lifestyleIndex += 2.0;
     else if (category === "Equipment") cachedState.lifestyleIndex += 0.5;
     else cachedState.lifestyleIndex += 0.3;
+    cachedState.lifestyleIndex = Math.min(cachedState.lifestyleIndex, 10.0);
     
     addServerLog(`Altyapı yatırımı satın alındı: ${id}. Varlık ve altyapı endeksi güncellendi.`, "success");
     await saveCacheToDb();
@@ -510,9 +606,5 @@ async function startServer() {
     console.error("Failed to start database & server:", err);
   }
 }
-
-// Support DB references in route closure
-const dbModule = require('./db');
-const db = dbModule.db;
 
 startServer();
