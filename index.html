@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARES - Cyprus Luxury Lead-Gen Platform</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div>
+        <div class="brand-section">
+          <div class="brand-logo">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" fill="none">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+          </div>
+          <div class="brand-name">ARES</div>
+        </div>
+        
+        <ul class="nav-links">
+          <li>
+            <a class="nav-item active" data-view="dashboard">
+              <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" fill="none">
+                <rect x="3" y="3" width="7" height="9"></rect>
+                <rect x="14" y="3" width="7" height="5"></rect>
+                <rect x="14" y="12" width="7" height="9"></rect>
+                <rect x="3" y="16" width="7" height="5"></rect>
+              </svg>
+              <span>Panel</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav-item" data-view="crm">
+              <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" fill="none">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+              <span>AI Lead Inbox</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav-item" data-view="catalog">
+              <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" fill="none">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                <path d="M2 17l10 5 10-5"></path>
+                <path d="M2 12l10 5 10-5"></path>
+              </svg>
+              <span>Gayrimenkul Kataloğu</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav-item" data-view="agents">
+              <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" fill="none">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+                <path d="M12 5a7 7 0 0 0-7 7m14 0a7 7 0 0 0-7-7m0 14a7 7 0 0 0 7-7m-14 0a7 7 0 0 0 7 7"></path>
+              </svg>
+              <span>Ajan Yönetimi</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav-item" data-view="shop">
+              <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" fill="none">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <path d="M16 10a4 4 0 0 1-8 0"></path>
+              </svg>
+              <span>Varlık & Yatırım</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Agent Profile Footer -->
+      <div class="sidebar-footer">
+        <div class="agent-profile">
+          <div class="agent-avatar">
+            <!-- Simulated premium headshot SVG outline -->
+            <svg viewBox="0 0 24 24" width="30" height="30" stroke="var(--primary)" fill="none">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
+          <div>
+            <div class="agent-name">Antigravity (AI)</div>
+            <div class="agent-location">Girne, Kuzey Kıbrıs</div>
+          </div>
+        </div>
+        <div class="scraper-status">
+          <div class="status-dot"></div>
+          <span>AI Ajan Ağı: Aktif Dinlemede</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      
+      <!-- Top Navbar showing metrics -->
+      <header class="top-navbar">
+        <div class="metrics-container">
+          
+          <!-- Net Worth Metric -->
+          <div class="metric-card" id="metric-networth" title="Toplam Birikmiş Komisyon">
+            <div class="metric-icon networth">
+              <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none">
+                <line x1="12" y1="1" x2="12" y2="23"></line>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+              </svg>
+            </div>
+            <div class="metric-info">
+              <span class="metric-label">Birikim (GBP)</span>
+              <span class="metric-value" id="networth-value">£0</span>
+            </div>
+          </div>
+
+          <!-- Passive Income Metric -->
+          <div class="metric-card" id="metric-income" title="AI Ajanlarının Ürettiği Pasif Gelir Oranı">
+            <div class="metric-icon passive">
+              <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none">
+                <line x1="12" y1="19" x2="12" y2="5"></line>
+                <polyline points="5 12 12 5 19 12"></polyline>
+              </svg>
+            </div>
+            <div class="metric-info">
+              <span class="metric-label">Pasif Gelir</span>
+              <span class="metric-value" id="passive-value">£0 / sn</span>
+            </div>
+          </div>
+
+          <!-- Lifestyle Index Metric -->
+          <div class="metric-card" id="metric-lifestyle" title="Kıbrıs'taki Güncel Yaşam Kalitesi Seviyeniz">
+            <div class="metric-icon lifestyle">
+              <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+              </svg>
+            </div>
+            <div class="metric-info">
+              <span class="metric-label">Yaşam Endeksi</span>
+              <span class="metric-value" id="lifestyle-value">1.0 / 10.0</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div>
+          <button class="btn btn-primary" id="btn-reset-data" style="background: rgba(239, 68, 68, 0.1); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.2); box-shadow: none;">
+            Veriyi Sıfırla
+          </button>
+        </div>
+      </header>
+
+      <!-- View 1: Dashboard Panel -->
+      <section class="view-panel active-view" id="view-dashboard">
+        <div class="dashboard-header">
+          <h1>ARES Operasyon Kontrol Paneli</h1>
+          <p>Dijital altyapı ve AI ajanları üzerinden otomatik müşteri bulma ve nitelikli emlak yönlendirme simülasyonu.</p>
+        </div>
+
+        <div class="welcome-banner">
+          <h2>Akdeniz Emlak Yatırım Ağı Aktif</h2>
+          <p>Geliştirdiğimiz ARES AI Ajanı, küresel forumları, LinkedIn hesaplarını ve yatırımcı gruplarını tarayarak Kuzey Kıbrıs gayrimenkul yatırımıyla ilgilenen varlıklı alıcıları (Brits, Germans, Russians) tespit ediyor. İlk lead'leri incelemek ve komisyon kazanmak için yan menüden <strong>AI Lead Inbox</strong> sekmesini ziyaret edin!</p>
+        </div>
+
+        <div class="dashboard-grid">
+          
+          <!-- Funnel Visualization Card -->
+          <div class="glass-card chart-section">
+            <div>
+              <h3>AI Hunisi Performansı (Funnel Activity)</h3>
+              <p style="font-size: 12px; color: var(--text-secondary);">Aktif tarama hızları, botların yakaladığı müşteri potansiyeli.</p>
+            </div>
+            
+            <div class="chart-placeholder">
+              <!-- Visual stylized representation of the lead funnel using CSS -->
+              <div style="display: flex; flex-direction: column; align-items: center; width: 80%; gap: 12px;">
+                <div style="width: 100%; background: linear-gradient(90deg, var(--primary-glow) 0%, transparent 100%); border: 1px solid var(--border-glass-active); padding: 8px 16px; border-radius: 8px; font-size: 11px; display: flex; justify-content: space-between;">
+                  <span>1. İnternet Tarama (LinkedIn, Reddit, Forums)</span>
+                  <strong id="funnel-scraped-speed">15 profil / dk</strong>
+                </div>
+                <div style="width: 85%; background: linear-gradient(90deg, rgba(245, 166, 35, 0.1) 0%, transparent 100%); border: 1px solid rgba(245, 166, 35, 0.2); padding: 8px 16px; border-radius: 8px; font-size: 11px; display: flex; justify-content: space-between;">
+                  <span>2. AI Aday Eşleştirme</span>
+                  <strong id="funnel-matched-rate">%22 uygunluk</strong>
+                </div>
+                <div style="width: 70%; background: linear-gradient(90deg, rgba(16, 185, 129, 0.1) 0%, transparent 100%); border: 1px solid rgba(16, 185, 129, 0.2); padding: 8px 16px; border-radius: 8px; font-size: 11px; display: flex; justify-content: space-between;">
+                  <span>3. AI Chatbot Kalifikasyonu</span>
+                  <strong id="funnel-inbox-count">0 aktif lead</strong>
+                </div>
+                <div style="width: 55%; background: linear-gradient(90deg, rgba(239, 68, 68, 0.1) 0%, transparent 100%); border: 1px solid rgba(239, 68, 68, 0.2); padding: 8px 16px; border-radius: 8px; font-size: 11px; display: flex; justify-content: space-between;">
+                  <span>4. Yönlendirilen / Kapanan Emlak Satışı</span>
+                  <strong id="funnel-deals-closed">0 anlaşma</strong>
+                </div>
+              </div>
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; margin-top: 16px; font-size: 12px; color: var(--text-secondary);">
+              <span>Toplam Aktif Yatırımcı Adayı Havuzu: <strong id="pool-count">242</strong></span>
+              <span>Ajan Tarama Çarpanı: <strong id="multiplier-value">1.0x</strong></span>
+            </div>
+          </div>
+
+          <!-- Live Activity Feed Card -->
+          <div class="glass-card live-feed-section">
+            <h3>AI Ajan Aktivite Günlüğü</h3>
+            <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px;">Ajanların yaptığı aramaların ve yazışmaların canlı simülasyonu.</p>
+            <div class="live-feed-list" id="feed-container">
+              <!-- JS will inject logs here -->
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- View 2: CRM / AI Lead Inbox -->
+      <section class="view-panel" id="view-crm">
+        <div class="chat-container">
+          
+          <!-- Chat Sidebar (Active Contacts List) -->
+          <div class="chat-sidebar">
+            <div class="chat-sidebar-header">
+              <h2>AI Lead Gelen Kutusu</h2>
+              <p style="font-size: 12px; color: var(--text-secondary);">AI botlarının sohbet ettiği yabancı alıcı adayları.</p>
+            </div>
+            <div class="chat-list" id="crm-chat-list">
+              <!-- JS will inject lead list -->
+            </div>
+          </div>
+
+          <!-- Chat Window (Conversation Thread) -->
+          <div class="chat-window">
+            
+            <!-- Chat Header -->
+            <div class="chat-window-header">
+              <div class="chat-client-info" id="active-chat-info">
+                <!-- Fallback when no chat selected -->
+                <div class="client-meta">
+                  <div class="client-name">Sohbet Seçilmedi</div>
+                  <div class="client-budget">İletişimi başlatmak için sol taraftan bir müşteri seçin.</div>
+                </div>
+              </div>
+              <div class="chat-actions">
+                <button class="btn btn-accent" id="btn-qualify-lead" disabled>
+                  <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" style="stroke-width: 3;">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  Yönlendir ve Komisyon Al
+                </button>
+              </div>
+            </div>
+
+            <!-- Chat Thread Messages -->
+            <div class="chat-thread" id="chat-thread-container">
+              <div class="msg-bubble agent-action">
+                AI Ajanlarımız aktif olarak forum ve sosyal ağları tarayarak potansiyel alıcı adaylarıyla ilk temasları kurmaktadır. Müşteriler durum güncellemeleriyle burada listelenir.
+              </div>
+            </div>
+
+            <!-- Chat Footer -->
+            <div class="chat-window-footer">
+              <div class="chat-input-placeholder">
+                Müşteri ile AI Temsilcimiz konuşmaktadır. Sohbet bittiğinde yönlendirme butonu aktifleşir.
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- View 3: Property Catalog -->
+      <section class="view-panel" id="view-catalog">
+        <div class="dashboard-header">
+          <h1>Kuzey Kıbrıs Gayrimenkul Portföyü</h1>
+          <p>Yabancı yatırımcılarımıza önerebileceğimiz ve komisyon kazanabileceğimiz güncel luxury projeler.</p>
+        </div>
+
+        <div class="property-grid" id="properties-container">
+          <!-- JS will inject properties here -->
+        </div>
+      </section>
+
+      <!-- View: AI Agent Orchestration -->
+      <section class="view-panel" id="view-agents">
+        <div class="dashboard-header">
+          <h1>AI Ajan Orkestrasyonu</h1>
+          <p>Operasyonel görevleri yürüten otonom yapay zeka ajanlarını yapılandırın, hedef pazarları belirleyin ve dil modellerini yükseltin.</p>
+        </div>
+
+        <div class="shop-grid" id="agents-container">
+          <!-- JS will inject agent cards here -->
+        </div>
+
+        <!-- Prompt & Email Editor -->
+        <div class="glass-card" style="margin-top: 24px; padding: 24px;">
+          <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 4px;">İletişim Stratejisi & Prompt Editörü</h3>
+          <p style="font-size: 11px; color: var(--text-secondary); margin-bottom: 20px;">AI Ajanlarımızın aday müşterilerle temas kurarken kullandığı sistem promptlarını ve mesajlaşma şablonlarını özelleştirin.</p>
+          
+          <div style="display: grid; grid-template-columns: 220px 1fr; gap: 24px;">
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <label style="font-size: 8px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Bölgesel Şablonlar</label>
+              <div style="display: flex; flex-direction: column; gap: 4px;" id="prompt-templates-list">
+                <!-- JS will inject templates list buttons -->
+              </div>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 11px; font-weight: 600; color: #fff;" id="active-template-title">Aktif Şablon</span>
+                <span style="font-size: 9px; color: var(--text-muted);">Değişkenler: {name}, {property}</span>
+              </div>
+              <textarea id="prompt-editor-textarea" rows="5" style="background: rgba(0, 0, 0, 0.2); border: 1px solid var(--border-color); color: #fff; padding: 12px; border-radius: 6px; font-size: 11.5px; font-family: var(--font-sans); line-height: 1.5; resize: none; outline: none; transition: var(--transition-smooth);"></textarea>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span id="prompt-save-status" style="font-size: 11px; color: var(--success); font-weight: 500; opacity: 0; transition: opacity 0.3s ease;">Şablon başarıyla güncellendi!</span>
+                <button class="btn btn-primary" id="btn-save-prompt">Şablonu Güncelle</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- View 4: Varlık & Yatırım -->
+      <section class="view-panel" id="view-shop">
+        <div class="dashboard-header">
+          <h1>Operasyonel Yatırımlar & Altyapı Yönetimi</h1>
+          <p>Elde edilen yönlendirme gelirleriyle dijital donanımınızı güçlendirin, operasyonel kapasitenizi artırın ve varlıklarınızı yönetin.</p>
+        </div>
+
+        <!-- Portfolio Status & OTC Swap Section -->
+        <div class="dashboard-grid" style="margin-bottom: 24px;">
+          <!-- Asset Breakdown Card -->
+          <div class="glass-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 12px; color: #fff;">Mevcut Varlık Dağılımı</h3>
+              <div style="display: flex; flex-direction: column; gap: 10px;">
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; font-size: 12px;">
+                  <span style="color: var(--text-secondary);">Nakit Bakiyesi (GBP)</span>
+                  <strong id="portfolio-cash" style="color: #fff;">£500</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; font-size: 12px;">
+                  <span style="color: var(--text-secondary);">Kripto Bakiyesi (USDT)</span>
+                  <strong id="portfolio-crypto" style="color: var(--primary);">0.00 USDT</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding-bottom: 4px; font-size: 12px;">
+                  <span style="color: var(--text-secondary);">Gayrimenkul Varlıkları</span>
+                  <strong id="portfolio-realestate" style="color: var(--accent);">£0</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- OTC Swap Card -->
+          <div class="glass-card">
+            <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 4px; color: #fff;">Kıbrıs OTC Likidite Havuzu (GBP / USDT Swap)</h3>
+            <p style="font-size: 10px; color: var(--text-secondary); margin-bottom: 12px;">Komisyon gelirlerinizi OTC kuru üzerinden komisyonsuz USDT cüzdanınıza aktarın.</p>
+            
+            <div style="display: flex; gap: 10px; align-items: center;">
+              <div style="flex: 1; display: flex; flex-direction: column; gap: 4px;">
+                <label style="font-size: 8px; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Gönderilecek GBP</label>
+                <input type="number" id="swap-input-gbp" placeholder="Miktar (GBP)" style="background: rgba(0, 0, 0, 0.2); border: 1px solid var(--border-color); color: #fff; padding: 6px 10px; border-radius: 6px; font-size: 12px; outline: none; width: 100%; font-family: var(--font-sans);">
+              </div>
+              <div style="font-size: 14px; margin-top: 14px; color: var(--text-muted);">➔</div>
+              <div style="flex: 1; display: flex; flex-direction: column; gap: 4px;">
+                <label style="font-size: 8px; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Alınacak USDT (Tahmini)</label>
+                <input type="text" id="swap-output-usdt" placeholder="0.00 USDT" readonly style="background: rgba(0, 0, 0, 0.35); border: 1px solid var(--border-color); color: var(--primary); padding: 6px 10px; border-radius: 6px; font-size: 12px; outline: none; width: 100%; font-weight: 600; font-family: var(--font-sans);">
+              </div>
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px;">
+              <span style="font-size: 10px; color: var(--text-muted);" id="swap-ticker-rate">Güncel OTC Kuru: 1 GBP = 1.255 USDT</span>
+              <button class="btn btn-primary" id="btn-execute-swap" style="padding: 6px 12px; font-size: 11px;">Dönüştürmeyi Onayla</button>
+            </div>
+          </div>
+        </div>
+
+        <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 12px; color: #fff;">Donanım & Gayrimenkul Yatırımları</h3>
+        <div class="shop-grid" id="shop-container">
+          <!-- JS will inject shop items here -->
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- Modal Overlays -->
+  <div class="modal-overlay" id="deal-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">Emlak Satışı Yönlendiriliyor!</div>
+        <button class="modal-close" id="btn-close-modal">
+          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body" id="modal-body-text">
+        Müşteri başarıyla Kıbrıs'taki partner emlak şirketine yönlendirildi.
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-primary" id="btn-confirm-deal">Harika, Nakdi Al!</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript application file -->
+  <script src="app.js"></script>
+</body>
+</html>

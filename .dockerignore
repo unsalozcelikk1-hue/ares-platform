@@ -1,0 +1,7 @@
+backend/database.sqlite
+.git
+.gitignore
+.DS_Store
+node_modules/
+package-lock.json
+*.log
