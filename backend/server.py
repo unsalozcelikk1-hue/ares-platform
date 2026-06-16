@@ -7,7 +7,7 @@ import threading
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
 # Configurations
-PORT = int(os.environ.get("PORT", 5000))
+PORT = int(os.environ.get("PORT", 5050))
 backend_dir = os.path.dirname(os.path.abspath(__file__))
 DB_FILE = os.path.join(backend_dir, 'database.sqlite')
 
@@ -400,6 +400,21 @@ class ARESHTTPRequestHandler(BaseHTTPRequestHandler):
             file_path = os.path.join(parent_dir, 'app.js')
             content_type = 'application/javascript'
             
+        elif self.path.startswith('/assets/'):
+            asset_file = self.path.lstrip('/')
+            asset_path = os.path.join(parent_dir, asset_file)
+            if os.path.exists(asset_path):
+                self.send_response(200)
+                self.send_header('Content-Type', 'image/png')
+                self.end_headers()
+                with open(asset_path, 'rb') as f:
+                    self.wfile.write(f.read())
+            else:
+                self.send_response(404)
+                self.end_headers()
+                self.wfile.write(b"Not Found")
+            return
+
         if file_path and os.path.exists(file_path):
             self.send_response(200)
             self.send_header('Content-Type', content_type)

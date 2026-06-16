@@ -283,7 +283,7 @@ let state = {
 
 // API configuration and state sync variables
 let backendActive = false;
-const API_BASE = window.location.protocol.startsWith('http') ? '' : 'http://localhost:5000';
+const API_BASE = window.location.protocol.startsWith('http') ? '' : 'http://localhost:5050';
 
 let lastCrmFingerprint = "";
 let lastRenderedLeadId = null;
