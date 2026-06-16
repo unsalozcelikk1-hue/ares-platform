@@ -88,7 +88,13 @@ cached_state = None
 otc_exchange_rate = 1.255
 state_lock = threading.Lock()
 
-# Ollama local LLM configuration
+# Ollama local LLM and Cloud LLM configurations
+import os
+
+ARES_LLM_API_KEY = os.environ.get("ARES_LLM_API_KEY")
+ARES_LLM_PROVIDER = os.environ.get("ARES_LLM_PROVIDER", "deepseek").lower()
+ARES_LLM_MODEL = os.environ.get("ARES_LLM_MODEL")
+
 OLLAMA_BASE_URL = "http://localhost:11434"
 active_ollama_model = None
 
@@ -110,26 +116,77 @@ def detect_ollama_model():
     active_ollama_model = None
     return None
 
-def call_ollama_chat(messages, model):
-    url = f"{OLLAMA_BASE_URL}/api/chat"
-    payload = {
-        "model": model,
-        "messages": messages,
-        "stream": False
-    }
-    try:
-        data = json.dumps(payload).encode('utf-8')
-        req = urllib.request.Request(
-            url,
-            data=data,
-            headers={"Content-Type": "application/json"}
-        )
-        with urllib.request.urlopen(req, timeout=8.0) as response:
-            res_data = json.loads(response.read().decode('utf-8'))
-            return res_data.get("message", {}).get("content", "")
-    except Exception as e:
-        print(f"[Ollama Call Error]: {e}")
-        return None
+def call_llm_chat(messages):
+    global ARES_LLM_API_KEY, ARES_LLM_PROVIDER, ARES_LLM_MODEL
+    
+    # 1. Route to Cloud LLM API if key is set
+    if ARES_LLM_API_KEY:
+        url = ""
+        model_name = ARES_LLM_MODEL
+        
+        if ARES_LLM_PROVIDER == "deepseek":
+            url = "https://api.deepseek.com/v1/chat/completions"
+            if not model_name: model_name = "deepseek-chat"
+        elif ARES_LLM_PROVIDER == "groq":
+            url = "https://api.groq.com/openai/v1/chat/completions"
+            if not model_name: model_name = "llama3-8b-8192"
+        elif ARES_LLM_PROVIDER == "openrouter":
+            url = "https://openrouter.ai/api/v1/chat/completions"
+            if not model_name: model_name = "meta-llama/llama-3-8b-instruct"
+        elif ARES_LLM_PROVIDER == "openai":
+            url = "https://api.openai.com/v1/chat/completions"
+            if not model_name: model_name = "gpt-4o-mini"
+        else:
+            url = ARES_LLM_PROVIDER  # Treat custom value as endpoint URL
+            if not model_name: model_name = "deepseek-chat"
+            
+        payload = {
+            "model": model_name,
+            "messages": messages,
+            "stream": False
+        }
+        
+        try:
+            data = json.dumps(payload).encode('utf-8')
+            req = urllib.request.Request(
+                url,
+                data=data,
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": f"Bearer {ARES_LLM_API_KEY}"
+                }
+            )
+            with urllib.request.urlopen(req, timeout=10.0) as response:
+                res_data = json.loads(response.read().decode('utf-8'))
+                choices = res_data.get("choices", [])
+                if choices:
+                    return choices[0].get("message", {}).get("content", "")
+        except Exception as e:
+            print(f"[Cloud LLM API Call Error] provider={ARES_LLM_PROVIDER}: {e}")
+            
+    # 2. Fall back to local Ollama if online
+    ollama_model = detect_ollama_model()
+    if ollama_model:
+        url = f"{OLLAMA_BASE_URL}/api/chat"
+        payload = {
+            "model": ollama_model,
+            "messages": messages,
+            "stream": False
+        }
+        try:
+            data = json.dumps(payload).encode('utf-8')
+            req = urllib.request.Request(
+                url,
+                data=data,
+                headers={"Content-Type": "application/json"}
+            )
+            with urllib.request.urlopen(req, timeout=8.0) as response:
+                res_data = json.loads(response.read().decode('utf-8'))
+                return res_data.get("message", {}).get("content", "")
+        except Exception as e:
+            print(f"[Ollama Call Error]: {e}")
+            
+    return None
 
 def init_db():
     conn = sqlite3.connect(DB_FILE)
@@ -623,8 +680,7 @@ def start_simulation_loop():
                     
                     response_text = None
                     try:
-                        detect_ollama_model()
-                        if active_ollama_model:
+                        if ARES_LLM_API_KEY or detect_ollama_model():
                             property_id = lead["propertyId"]
                             prop_details = next((p for p in PROPERTIES if p["id"] == property_id), None)
                             friendly_names = {
@@ -666,9 +722,9 @@ def start_simulation_loop():
                                     role = "assistant" if msg["sender"] == "agent" else "user"
                                 ollama_messages.append({"role": role, "content": msg["text"]})
                                 
-                            response_text = call_ollama_chat(ollama_messages, active_ollama_model)
+                            response_text = call_llm_chat(ollama_messages)
                     except Exception as e:
-                        print(f"Ollama integration error in tick loop: {e}")
+                        print(f"LLM integration error in tick loop: {e}")
                         response_text = None
                         
                     if response_text:
@@ -717,12 +773,16 @@ def run_server():
     init_db()
     load_state()
     
-    # Check Ollama
-    ollama_model = detect_ollama_model()
-    if ollama_model:
-        print(f"Ollama local LLM service detected! Active model: {ollama_model}")
+    # Check LLM availability
+    if ARES_LLM_API_KEY:
+        model_name = ARES_LLM_MODEL if ARES_LLM_MODEL else ("deepseek-chat" if ARES_LLM_PROVIDER == "deepseek" else "default")
+        print(f"ARES Cloud LLM active. Provider: {ARES_LLM_PROVIDER.upper()} (Model: {model_name})")
     else:
-        print("Ollama local LLM service is offline. ARES will run with template fallback dialogues.")
+        ollama_model = detect_ollama_model()
+        if ollama_model:
+            print(f"ARES Local LLM active. Provider: OLLAMA (Model: {ollama_model})")
+        else:
+            print("ARES LLM services offline (Cloud Key not set & Ollama offline). Fallback template dialogues will be used.")
         
     # Start thread
     t = threading.Thread(target=start_simulation_loop)
