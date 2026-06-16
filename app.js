@@ -248,6 +248,59 @@ function formatMoney(amount) {
   return "£" + Math.floor(amount).toLocaleString('en-GB');
 }
 
+// Helper: Animate Numerical Counters
+const counterIntervals = {};
+function animateCounter(elementId, targetValue, formatFn, duration = 800) {
+  const element = document.getElementById(elementId);
+  if (!element) return;
+  
+  const prevValueStr = element.dataset.prevValue || "0";
+  const startValue = parseFloat(prevValueStr);
+  const target = parseFloat(targetValue);
+  
+  // If target value hasn't changed, do nothing
+  if (startValue === target) {
+    element.textContent = formatFn(target);
+    return;
+  }
+  
+  // Store the new target value
+  element.dataset.prevValue = target;
+  
+  // Clear any existing animation on this element
+  if (counterIntervals[elementId]) {
+    cancelAnimationFrame(counterIntervals[elementId]);
+  }
+  
+  // If the change is very small (like minor ticks), don't animate to save CPU
+  const diff = Math.abs(target - startValue);
+  if (diff <= 1) {
+    element.textContent = formatFn(target);
+    return;
+  }
+  
+  const startTime = performance.now();
+  
+  function update(currentTime) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    
+    // Ease out quad
+    const easeProgress = progress * (2 - progress);
+    const currentValue = startValue + (target - startValue) * easeProgress;
+    
+    element.textContent = formatFn(currentValue);
+    
+    if (progress < 1) {
+      counterIntervals[elementId] = requestAnimationFrame(update);
+    } else {
+      element.textContent = formatFn(target);
+    }
+  }
+  
+  counterIntervals[elementId] = requestAnimationFrame(update);
+}
+
 // 3. Save / Load State
 function saveState() {
   if (backendActive) return;
@@ -316,16 +369,41 @@ navItems.forEach(item => {
       renderShop();
       renderPortfolio();
     }
+    
+    // Close sidebar on mobile after selecting a view
+    const sidebar = document.querySelector(".sidebar");
+    const backdrop = document.getElementById("sidebar-backdrop");
+    if (sidebar && sidebar.classList.contains("sidebar-open")) {
+      sidebar.classList.remove("sidebar-open");
+      if (backdrop) backdrop.classList.remove("active");
+    }
   });
 });
+
+// Mobile menu toggle listener
+const menuToggleBtn = document.getElementById("menu-toggle-btn");
+const sidebar = document.querySelector(".sidebar");
+const sidebarBackdrop = document.getElementById("sidebar-backdrop");
+
+if (menuToggleBtn && sidebar && sidebarBackdrop) {
+  menuToggleBtn.addEventListener("click", () => {
+    sidebar.classList.toggle("sidebar-open");
+    sidebarBackdrop.classList.toggle("active");
+  });
+  
+  sidebarBackdrop.addEventListener("click", () => {
+    sidebar.classList.remove("sidebar-open");
+    sidebarBackdrop.classList.remove("active");
+  });
+}
 
 let otcExchangeRate = 1.255;
 
 // 5. Render Functions
 function updateTopNavbar() {
-  document.getElementById("networth-value").textContent = formatMoney(state.networth);
-  document.getElementById("passive-value").textContent = `£${state.passiveIncome}/sn`;
-  document.getElementById("lifestyle-value").textContent = `${state.lifestyleIndex.toFixed(1)} / 10.0`;
+  animateCounter("networth-value", state.networth, formatMoney);
+  animateCounter("passive-value", state.passiveIncome, val => `£${Math.round(val)}/sn`);
+  animateCounter("lifestyle-value", state.lifestyleIndex, val => `${val.toFixed(1)} / 10.0`);
 }
 
 // Render Property Catalog
@@ -697,6 +775,47 @@ function addFeedLog(msg, type = "normal") {
   renderFeedLogs();
 }
 
+function getLogBadgeInfo(msg) {
+  const lowercaseMsg = msg.toLowerCase();
+  
+  if (
+    lowercaseMsg.includes("yeni müşteri yakalandı") || 
+    lowercaseMsg.includes("taranarak") || 
+    lowercaseMsg.includes("tarıyor") || 
+    lowercaseMsg.includes("linkedin") || 
+    lowercaseMsg.includes("reddit") || 
+    lowercaseMsg.includes("taranıyor") ||
+    lowercaseMsg.includes("aramalarını") ||
+    lowercaseMsg.includes("kazıma")
+  ) {
+    return { category: "Tarama", badgeClass: "badge-scraper", dot: "🟢" };
+  }
+  
+  if (
+    lowercaseMsg.includes("sohbeti ilerliyor") || 
+    lowercaseMsg.includes("görüşme tamamlandı") || 
+    lowercaseMsg.includes("şablonu güncellendi") ||
+    lowercaseMsg.includes("şablon") ||
+    lowercaseMsg.includes("mesaj gönderildi")
+  ) {
+    return { category: "Eşleştirme", badgeClass: "badge-negotiator", dot: "🟡" };
+  }
+  
+  if (
+    lowercaseMsg.includes("satın alındı") || 
+    lowercaseMsg.includes("gelir") || 
+    lowercaseMsg.includes("swap") || 
+    lowercaseMsg.includes("hesabınıza") ||
+    lowercaseMsg.includes("ödemesi") ||
+    lowercaseMsg.includes("yönlendirildi") ||
+    lowercaseMsg.includes("başarılı")
+  ) {
+    return { category: "İşlem", badgeClass: "badge-closer", dot: "🔵" };
+  }
+  
+  return { category: "Sistem", badgeClass: "badge-system", dot: "🔴" };
+}
+
 function renderFeedLogs() {
   const container = document.getElementById("feed-container");
   if (!container) return;
@@ -705,8 +824,12 @@ function renderFeedLogs() {
   state.feedLogs.forEach(log => {
     const item = document.createElement("div");
     item.className = `feed-item ${log.type === 'warning' ? 'warning' : (log.type === 'success' ? 'success' : '')}`;
+    
+    const badgeInfo = getLogBadgeInfo(log.msg);
+    
     item.innerHTML = `
       <span class="feed-time">[${log.timestamp}]</span>
+      <span class="feed-badge ${badgeInfo.badgeClass}">${badgeInfo.dot} ${badgeInfo.category}</span>
       <span class="feed-message">${log.msg}</span>
     `;
     container.appendChild(item);
@@ -1257,8 +1380,8 @@ function renderPortfolio() {
   
   if (!cashEl || !cryptoEl || !realestateEl) return;
   
-  cashEl.textContent = formatMoney(state.networth);
-  cryptoEl.textContent = `${state.cryptoUSDT.toFixed(2)} USDT`;
+  animateCounter("portfolio-cash", state.networth, formatMoney);
+  animateCounter("portfolio-crypto", state.cryptoUSDT, val => `${val.toFixed(2)} USDT`);
   
   // Calculate real estate assets value based on owned upgrades in category Housing
   let realEstateVal = 0;
@@ -1269,7 +1392,7 @@ function renderPortfolio() {
     }
   });
   
-  realestateEl.textContent = formatMoney(realEstateVal);
+  animateCounter("portfolio-realestate", realEstateVal, formatMoney);
 }
 
 // 16. OTC Swap Mechanics

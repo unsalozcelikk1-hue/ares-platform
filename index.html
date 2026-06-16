@@ -8,6 +8,7 @@
 </head>
 <body>
   <div class="app-container">
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
     
     <!-- Sidebar Navigation -->
     <aside class="sidebar">
@@ -80,7 +81,7 @@
         <div class="agent-profile">
           <div class="agent-avatar">
             <!-- Simulated premium headshot SVG outline -->
-            <svg viewBox="0 0 24 24" width="30" height="30" stroke="var(--primary)" fill="none">
+            <svg viewBox="0 0 24 24" width="30" height="30" stroke="var(--primary, #3b82f6)" fill="none">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
               <circle cx="12" cy="7" r="4"></circle>
             </svg>
@@ -102,6 +103,13 @@
       
       <!-- Top Navbar showing metrics -->
       <header class="top-navbar">
+        <button class="menu-toggle" id="menu-toggle-btn" aria-label="Menüyü Aç">
+          <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
         <div class="metrics-container">
           
           <!-- Net Worth Metric -->
@@ -148,7 +156,7 @@
         </div>
 
         <div>
-          <button class="btn btn-primary" id="btn-reset-data" style="background: rgba(239, 68, 68, 0.1); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.2); box-shadow: none;">
+          <button class="btn btn-primary" id="btn-reset-data" style="background: rgba(239, 68, 68, 0.1); color: var(--danger, #ef4444); border: 1px solid rgba(239, 68, 68, 0.2); box-shadow: none;">
             Veriyi Sıfırla
           </button>
         </div>
@@ -172,32 +180,49 @@
           <div class="glass-card chart-section">
             <div>
               <h3>AI Hunisi Performansı (Funnel Activity)</h3>
-              <p style="font-size: 12px; color: var(--text-secondary);">Aktif tarama hızları, botların yakaladığı müşteri potansiyeli.</p>
+              <p style="font-size: 12px; color: var(--text-secondary, #94a3b8);">Aktif tarama hızları, botların yakaladığı müşteri potansiyeli.</p>
             </div>
             
-            <div class="chart-placeholder">
-              <!-- Visual stylized representation of the lead funnel using CSS -->
-              <div style="display: flex; flex-direction: column; align-items: center; width: 80%; gap: 12px;">
-                <div style="width: 100%; background: linear-gradient(90deg, var(--primary-glow) 0%, transparent 100%); border: 1px solid var(--border-glass-active); padding: 8px 16px; border-radius: 8px; font-size: 11px; display: flex; justify-content: space-between;">
-                  <span>1. İnternet Tarama (LinkedIn, Reddit, Forums)</span>
-                  <strong id="funnel-scraped-speed">15 profil / dk</strong>
-                </div>
-                <div style="width: 85%; background: linear-gradient(90deg, rgba(245, 166, 35, 0.1) 0%, transparent 100%); border: 1px solid rgba(245, 166, 35, 0.2); padding: 8px 16px; border-radius: 8px; font-size: 11px; display: flex; justify-content: space-between;">
-                  <span>2. AI Aday Eşleştirme</span>
-                  <strong id="funnel-matched-rate">%22 uygunluk</strong>
-                </div>
-                <div style="width: 70%; background: linear-gradient(90deg, rgba(16, 185, 129, 0.1) 0%, transparent 100%); border: 1px solid rgba(16, 185, 129, 0.2); padding: 8px 16px; border-radius: 8px; font-size: 11px; display: flex; justify-content: space-between;">
-                  <span>3. AI Chatbot Kalifikasyonu</span>
-                  <strong id="funnel-inbox-count">0 aktif lead</strong>
-                </div>
-                <div style="width: 55%; background: linear-gradient(90deg, rgba(239, 68, 68, 0.1) 0%, transparent 100%); border: 1px solid rgba(239, 68, 68, 0.2); padding: 8px 16px; border-radius: 8px; font-size: 11px; display: flex; justify-content: space-between;">
-                  <span>4. Yönlendirilen / Kapanan Emlak Satışı</span>
-                  <strong id="funnel-deals-closed">0 anlaşma</strong>
-                </div>
-              </div>
+            <div class="chart-placeholder" style="flex-direction: column; padding: 10px 0;">
+              <svg id="funnel-svg" viewBox="0 0 400 240" width="100%" height="240" style="max-width: 400px; font-family: var(--font-sans, sans-serif);">
+                <!-- Funnel Layer 1 -->
+                <polygon points="20,10 380,10 350,60 50,60" fill="url(#funnel-grad-1)" stroke="var(--primary, #3b82f6)" stroke-width="1" opacity="0.9" />
+                <text x="200" y="35" fill="#ffffff" font-size="11" font-weight="600" text-anchor="middle">1. Tarama: <tspan id="funnel-scraped-speed">15 profil / dk</tspan></text>
+                
+                <!-- Funnel Layer 2 -->
+                <polygon points="52,65 348,65 318,115 82,115" fill="url(#funnel-grad-2)" stroke="var(--accent, #d97706)" stroke-width="1" opacity="0.9" />
+                <text x="200" y="95" fill="#ffffff" font-size="11" font-weight="600" text-anchor="middle">2. Eşleştirme: <tspan id="funnel-matched-rate">%22 uygunluk</tspan></text>
+                
+                <!-- Funnel Layer 3 -->
+                <polygon points="84,120 316,120 286,170 114,170" fill="url(#funnel-grad-3)" stroke="var(--success, #10b981)" stroke-width="1" opacity="0.9" />
+                <text x="200" y="150" fill="#ffffff" font-size="11" font-weight="600" text-anchor="middle">3. AI Sohbet: <tspan id="funnel-inbox-count">0 aktif lead</tspan></text>
+                
+                <!-- Funnel Layer 4 -->
+                <polygon points="116,175 284,175 254,225 146,225" fill="url(#funnel-grad-4)" stroke="var(--danger, #ef4444)" stroke-width="1" opacity="0.9" />
+                <text x="200" y="205" fill="#ffffff" font-size="11" font-weight="600" text-anchor="middle">4. Kapanış: <tspan id="funnel-deals-closed">0 anlaşma</tspan></text>
+                
+                <defs>
+                  <linearGradient id="funnel-grad-1" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="var(--primary, #3b82f6)" stop-opacity="0.35" />
+                    <stop offset="100%" stop-color="var(--primary, #3b82f6)" stop-opacity="0.05" />
+                  </linearGradient>
+                  <linearGradient id="funnel-grad-2" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="var(--accent, #d97706)" stop-opacity="0.35" />
+                    <stop offset="100%" stop-color="var(--accent, #d97706)" stop-opacity="0.05" />
+                  </linearGradient>
+                  <linearGradient id="funnel-grad-3" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="var(--success, #10b981)" stop-opacity="0.35" />
+                    <stop offset="100%" stop-color="var(--success, #10b981)" stop-opacity="0.05" />
+                  </linearGradient>
+                  <linearGradient id="funnel-grad-4" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="var(--danger, #ef4444)" stop-opacity="0.35" />
+                    <stop offset="100%" stop-color="var(--danger, #ef4444)" stop-opacity="0.05" />
+                  </linearGradient>
+                </defs>
+              </svg>
             </div>
             
-            <div style="display: flex; justify-content: space-between; margin-top: 16px; font-size: 12px; color: var(--text-secondary);">
+            <div style="display: flex; justify-content: space-between; margin-top: 16px; font-size: 12px; color: var(--text-secondary, #94a3b8);">
               <span>Toplam Aktif Yatırımcı Adayı Havuzu: <strong id="pool-count">242</strong></span>
               <span>Ajan Tarama Çarpanı: <strong id="multiplier-value">1.0x</strong></span>
             </div>
@@ -206,7 +231,7 @@
           <!-- Live Activity Feed Card -->
           <div class="glass-card live-feed-section">
             <h3>AI Ajan Aktivite Günlüğü</h3>
-            <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px;">Ajanların yaptığı aramaların ve yazışmaların canlı simülasyonu.</p>
+            <p style="font-size: 12px; color: var(--text-secondary, #94a3b8); margin-bottom: 8px;">Ajanların yaptığı aramaların ve yazışmaların canlı simülasyonu.</p>
             <div class="live-feed-list" id="feed-container">
               <!-- JS will inject logs here -->
             </div>
@@ -223,10 +248,17 @@
           <div class="chat-sidebar">
             <div class="chat-sidebar-header">
               <h2>AI Lead Gelen Kutusu</h2>
-              <p style="font-size: 12px; color: var(--text-secondary);">AI botlarının sohbet ettiği yabancı alıcı adayları.</p>
+              <p style="font-size: 12px; color: var(--text-secondary, #94a3b8);">AI botlarının sohbet ettiği yabancı alıcı adayları.</p>
             </div>
             <div class="chat-list" id="crm-chat-list">
-              <!-- JS will inject lead list -->
+              <div class="skeleton-card">
+                <div class="skeleton skeleton-text" style="width: 50%;"></div>
+                <div class="skeleton skeleton-text short"></div>
+              </div>
+              <div class="skeleton-card">
+                <div class="skeleton skeleton-text" style="width: 70%;"></div>
+                <div class="skeleton skeleton-text short"></div>
+              </div>
             </div>
           </div>
 
@@ -278,8 +310,17 @@
           <p>Yabancı yatırımcılarımıza önerebileceğimiz ve komisyon kazanabileceğimiz güncel luxury projeler.</p>
         </div>
 
-        <div class="property-grid" id="properties-container">
-          <!-- JS will inject properties here -->
+         <div class="property-grid" id="properties-container">
+          <div class="skeleton-card" style="height: 220px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div class="skeleton skeleton-rect" style="height: 120px; border-radius: 6px;"></div>
+            <div class="skeleton skeleton-text" style="margin-top: 8px;"></div>
+            <div class="skeleton skeleton-text short"></div>
+          </div>
+          <div class="skeleton-card" style="height: 220px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div class="skeleton skeleton-rect" style="height: 120px; border-radius: 6px;"></div>
+            <div class="skeleton skeleton-text" style="margin-top: 8px;"></div>
+            <div class="skeleton skeleton-text short"></div>
+          </div>
         </div>
       </section>
 
@@ -291,17 +332,26 @@
         </div>
 
         <div class="shop-grid" id="agents-container">
-          <!-- JS will inject agent cards here -->
+          <div class="skeleton-card" style="height: 150px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div class="skeleton skeleton-text" style="width: 80%;"></div>
+            <div class="skeleton skeleton-text short"></div>
+            <div class="skeleton skeleton-rect" style="height: 30px; border-radius: 6px;"></div>
+          </div>
+          <div class="skeleton-card" style="height: 150px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div class="skeleton skeleton-text" style="width: 80%;"></div>
+            <div class="skeleton skeleton-text short"></div>
+            <div class="skeleton skeleton-rect" style="height: 30px; border-radius: 6px;"></div>
+          </div>
         </div>
 
         <!-- Prompt & Email Editor -->
         <div class="glass-card" style="margin-top: 24px; padding: 24px;">
           <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 4px;">İletişim Stratejisi & Prompt Editörü</h3>
-          <p style="font-size: 11px; color: var(--text-secondary); margin-bottom: 20px;">AI Ajanlarımızın aday müşterilerle temas kurarken kullandığı sistem promptlarını ve mesajlaşma şablonlarını özelleştirin.</p>
+          <p style="font-size: 11px; color: var(--text-secondary, #94a3b8); margin-bottom: 20px;">AI Ajanlarımızın aday müşterilerle temas kurarken kullandığı sistem promptlarını ve mesajlaşma şablonlarını özelleştirin.</p>
           
           <div style="display: grid; grid-template-columns: 220px 1fr; gap: 24px;">
             <div style="display: flex; flex-direction: column; gap: 8px;">
-              <label style="font-size: 8px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Bölgesel Şablonlar</label>
+              <label style="font-size: 8px; color: var(--text-muted, #64748b); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Bölgesel Şablonlar</label>
               <div style="display: flex; flex-direction: column; gap: 4px;" id="prompt-templates-list">
                 <!-- JS will inject templates list buttons -->
               </div>
@@ -310,11 +360,11 @@
             <div style="display: flex; flex-direction: column; gap: 12px;">
               <div style="display: flex; justify-content: space-between; align-items: center;">
                 <span style="font-size: 11px; font-weight: 600; color: #fff;" id="active-template-title">Aktif Şablon</span>
-                <span style="font-size: 9px; color: var(--text-muted);">Değişkenler: {name}, {property}</span>
+                <span style="font-size: 9px; color: var(--text-muted, #64748b);">Değişkenler: {name}, {property}</span>
               </div>
-              <textarea id="prompt-editor-textarea" rows="5" style="background: rgba(0, 0, 0, 0.2); border: 1px solid var(--border-color); color: #fff; padding: 12px; border-radius: 6px; font-size: 11.5px; font-family: var(--font-sans); line-height: 1.5; resize: none; outline: none; transition: var(--transition-smooth);"></textarea>
+              <textarea id="prompt-editor-textarea" rows="5" style="background: rgba(0, 0, 0, 0.2); border: 1px solid var(--border-color, #222e4a); color: #fff; padding: 12px; border-radius: 6px; font-size: 11.5px; font-family: var(--font-sans, sans-serif); line-height: 1.5; resize: none; outline: none; transition: var(--transition-smooth, all 0.2s ease-in-out);"></textarea>
               <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span id="prompt-save-status" style="font-size: 11px; color: var(--success); font-weight: 500; opacity: 0; transition: opacity 0.3s ease;">Şablon başarıyla güncellendi!</span>
+                <span id="prompt-save-status" style="font-size: 11px; color: var(--success, #10b981); font-weight: 500; opacity: 0; transition: opacity 0.3s ease;">Şablon başarıyla güncellendi!</span>
                 <button class="btn btn-primary" id="btn-save-prompt">Şablonu Güncelle</button>
               </div>
             </div>
@@ -336,17 +386,17 @@
             <div>
               <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 12px; color: #fff;">Mevcut Varlık Dağılımı</h3>
               <div style="display: flex; flex-direction: column; gap: 10px;">
-                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; font-size: 12px;">
-                  <span style="color: var(--text-secondary);">Nakit Bakiyesi (GBP)</span>
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color, #222e4a); padding-bottom: 8px; font-size: 12px;">
+                  <span style="color: var(--text-secondary, #94a3b8);">Nakit Bakiyesi (GBP)</span>
                   <strong id="portfolio-cash" style="color: #fff;">£500</strong>
                 </div>
-                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; font-size: 12px;">
-                  <span style="color: var(--text-secondary);">Kripto Bakiyesi (USDT)</span>
-                  <strong id="portfolio-crypto" style="color: var(--primary);">0.00 USDT</strong>
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color, #222e4a); padding-bottom: 8px; font-size: 12px;">
+                  <span style="color: var(--text-secondary, #94a3b8);">Kripto Bakiyesi (USDT)</span>
+                  <strong id="portfolio-crypto" style="color: var(--primary, #3b82f6);">0.00 USDT</strong>
                 </div>
                 <div style="display: flex; justify-content: space-between; padding-bottom: 4px; font-size: 12px;">
-                  <span style="color: var(--text-secondary);">Gayrimenkul Varlıkları</span>
-                  <strong id="portfolio-realestate" style="color: var(--accent);">£0</strong>
+                  <span style="color: var(--text-secondary, #94a3b8);">Gayrimenkul Varlıkları</span>
+                  <strong id="portfolio-realestate" style="color: var(--accent, #d97706);">£0</strong>
                 </div>
               </div>
             </div>
@@ -355,22 +405,22 @@
           <!-- OTC Swap Card -->
           <div class="glass-card">
             <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 4px; color: #fff;">Kıbrıs OTC Likidite Havuzu (GBP / USDT Swap)</h3>
-            <p style="font-size: 10px; color: var(--text-secondary); margin-bottom: 12px;">Komisyon gelirlerinizi OTC kuru üzerinden komisyonsuz USDT cüzdanınıza aktarın.</p>
+            <p style="font-size: 10px; color: var(--text-secondary, #94a3b8); margin-bottom: 12px;">Komisyon gelirlerinizi OTC kuru üzerinden komisyonsuz USDT cüzdanınıza aktarın.</p>
             
             <div style="display: flex; gap: 10px; align-items: center;">
               <div style="flex: 1; display: flex; flex-direction: column; gap: 4px;">
-                <label style="font-size: 8px; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Gönderilecek GBP</label>
-                <input type="number" id="swap-input-gbp" placeholder="Miktar (GBP)" style="background: rgba(0, 0, 0, 0.2); border: 1px solid var(--border-color); color: #fff; padding: 6px 10px; border-radius: 6px; font-size: 12px; outline: none; width: 100%; font-family: var(--font-sans);">
+                <label style="font-size: 8px; color: var(--text-muted, #64748b); font-weight: 700; text-transform: uppercase;">Gönderilecek GBP</label>
+                <input type="number" id="swap-input-gbp" placeholder="Miktar (GBP)" style="background: rgba(0, 0, 0, 0.2); border: 1px solid var(--border-color, #222e4a); color: #fff; padding: 6px 10px; border-radius: 6px; font-size: 12px; outline: none; width: 100%; font-family: var(--font-sans, sans-serif);">
               </div>
-              <div style="font-size: 14px; margin-top: 14px; color: var(--text-muted);">➔</div>
+              <div style="font-size: 14px; margin-top: 14px; color: var(--text-muted, #64748b);">➔</div>
               <div style="flex: 1; display: flex; flex-direction: column; gap: 4px;">
-                <label style="font-size: 8px; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Alınacak USDT (Tahmini)</label>
-                <input type="text" id="swap-output-usdt" placeholder="0.00 USDT" readonly style="background: rgba(0, 0, 0, 0.35); border: 1px solid var(--border-color); color: var(--primary); padding: 6px 10px; border-radius: 6px; font-size: 12px; outline: none; width: 100%; font-weight: 600; font-family: var(--font-sans);">
+                <label style="font-size: 8px; color: var(--text-muted, #64748b); font-weight: 700; text-transform: uppercase;">Alınacak USDT (Tahmini)</label>
+                <input type="text" id="swap-output-usdt" placeholder="0.00 USDT" readonly style="background: rgba(0, 0, 0, 0.35); border: 1px solid var(--border-color, #222e4a); color: var(--primary, #3b82f6); padding: 6px 10px; border-radius: 6px; font-size: 12px; outline: none; width: 100%; font-weight: 600; font-family: var(--font-sans, sans-serif);">
               </div>
             </div>
             
             <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px;">
-              <span style="font-size: 10px; color: var(--text-muted);" id="swap-ticker-rate">Güncel OTC Kuru: 1 GBP = 1.255 USDT</span>
+              <span style="font-size: 10px; color: var(--text-muted, #64748b);" id="swap-ticker-rate">Güncel OTC Kuru: 1 GBP = 1.255 USDT</span>
               <button class="btn btn-primary" id="btn-execute-swap" style="padding: 6px 12px; font-size: 11px;">Dönüştürmeyi Onayla</button>
             </div>
           </div>
@@ -378,7 +428,16 @@
 
         <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 12px; color: #fff;">Donanım & Gayrimenkul Yatırımları</h3>
         <div class="shop-grid" id="shop-container">
-          <!-- JS will inject shop items here -->
+          <div class="skeleton-card" style="height: 180px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div class="skeleton skeleton-text" style="width: 70%;"></div>
+            <div class="skeleton skeleton-text short"></div>
+            <div class="skeleton skeleton-rect" style="height: 30px; border-radius: 6px;"></div>
+          </div>
+          <div class="skeleton-card" style="height: 180px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div class="skeleton skeleton-text" style="width: 70%;"></div>
+            <div class="skeleton skeleton-text short"></div>
+            <div class="skeleton skeleton-rect" style="height: 30px; border-radius: 6px;"></div>
+          </div>
         </div>
       </section>
 

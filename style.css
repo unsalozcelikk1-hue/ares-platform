@@ -7,8 +7,10 @@
   --bg-card-hover: #1c253c;
   --border-color: #222e4a;
   --border-active: #b45309; /* Elegant Bronze Gold */
+  --border-glass-active: rgba(180, 83, 9, 0.3);
   
   --primary: #3b82f6; /* Trustworthy Corporate Blue */
+  --primary-glow: rgba(59, 130, 246, 0.15);
   --accent: #d97706;  /* Deep Amber / Gold */
   --success: #10b981;
   --danger: #ef4444;
@@ -410,6 +412,34 @@ body {
 
 .feed-message {
   color: var(--text-secondary);
+}
+
+.feed-badge {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-right: 4px;
+  flex-shrink: 0;
+}
+.badge-scraper {
+  background: rgba(59, 130, 246, 0.15);
+  color: var(--primary);
+}
+.badge-negotiator {
+  background: rgba(217, 119, 6, 0.15);
+  color: var(--accent);
+}
+.badge-closer {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--success);
+}
+.badge-system {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--danger);
 }
 
 /* CRM / Chat UI */
@@ -925,4 +955,175 @@ body {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
+}
+
+/* Skeleton Loading Styles */
+.skeleton {
+  background: linear-gradient(90deg, #141b2d 25%, #222e4a 50%, #141b2d 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite ease-in-out;
+  border-radius: 4px;
+}
+
+.skeleton-text {
+  height: 12px;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.skeleton-text.short {
+  width: 60%;
+}
+
+.skeleton-rect {
+  height: 40px;
+  width: 100%;
+}
+
+.skeleton-card {
+  padding: 16px;
+  border: 1px solid var(--border-color, #222e4a);
+  border-radius: 8px;
+  margin-bottom: 12px;
+  background: var(--bg-card, #141b2d);
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Mobile Toggle Menu Button */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-primary, #f8fafc);
+  cursor: pointer;
+  padding: 8px;
+}
+
+.menu-toggle svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block; /* Show menu toggle on mobile */
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 1000;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+  }
+
+  .sidebar.sidebar-open {
+    transform: translateX(0);
+  }
+
+  /* Overlay for when sidebar is open */
+  .sidebar-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .sidebar-backdrop.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .top-navbar {
+    padding: 0 16px;
+    height: auto;
+    min-height: 72px;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  .metrics-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 8px;
+    flex: 1;
+  }
+
+  .metric-card {
+    flex: 1 1 calc(50% - 8px);
+    min-width: 120px;
+    padding: 6px 12px;
+  }
+  
+  #metric-lifestyle {
+    flex: 1 1 100%; /* lifestyle card full width on small screens */
+  }
+
+  /* Adjust view-container layouts to scroll or stack */
+  .dashboard-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+    padding: 16px !important;
+    overflow-y: auto !important;
+  }
+
+  .crm-container {
+    flex-direction: column !important;
+  }
+
+  .lead-list-panel {
+    width: 100% !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--border-color, #222e4a);
+    max-height: 250px;
+  }
+
+  .chat-panel {
+    flex: 1;
+    min-height: 350px;
+  }
+
+  .catalog-grid {
+    grid-template-columns: 1fr !important;
+    padding: 16px !important;
+  }
+
+  .agents-grid {
+    grid-template-columns: 1fr !important;
+    padding: 16px !important;
+  }
+
+  .shop-grid {
+    grid-template-columns: 1fr !important;
+    padding: 16px !important;
+  }
+
+  .header-actions {
+    margin-top: 8px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
 }
